@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yulun Cai: Contact</title>
+    <title>Yaoxi Li: Contact</title>
 </head>
 <body>
     <nav>
         <a href="/index.html">Home</a>
         <a href="/projects/index.html">Projects</a>
         <a href="/contact/index.html">Contact</a>
-        <a href="https://whiteblank0.github.io/portfolio/" target="_blank">GitHub</a>
+        <a href="https://github.com/YOUR_GITHUB_PROFILE" target="_blank">GitHub</a>
     </nav>
     <h1>Contact</h1>
+    <form action="mailto:yal149@ucsd.edu" method="POST" enctype="text/plain">
+        <label for="email">My Email:</label>
+        <input id="email" name="email" type="email" required>
+        <br>
+        <label for="subject">Subject:</label>
+        <input id="subject" name="subject">
+        <br>
+        <label for="body">Message:</label>
+        <textarea id="body" name="body" rows="5"></textarea>
+        <br>
+        <button>Send Message</button>
+    </form>
 </body>
 </html>
