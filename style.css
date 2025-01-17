@@ -7,3 +7,40 @@ body {
   font: 100%/1.5 system-ui;
   padding: 10;
 }
+
+nav ul,
+nav li {
+  display: contents;
+}
+
+nav {
+  display: flex;
+  /* Optional: spacing within the nav */
+  gap: 1rem;
+  /* Optional: background or other nav styling */
+  background-color: #eee;
+  padding: 1rem;
+}
+
+/* 
+  Make each link take up an equal share of the available space.
+  flex: 1 means "take 1 unit of the remaining space".
+*/
+nav a {
+  flex: 1;
+  text-align: center; /* Center the text */
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  /* Optional: Add some padding for better click/touch area */
+  padding: 0.5rem;
+}
+
+/* 
+  Add a different style for the "current" item (optional).
+  Here, we are simply changing the text color and font weight.
+*/
+nav a.current {
+  color: #007acc;
+  font-weight: 700;
+}
