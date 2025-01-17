@@ -2,41 +2,51 @@ body {
   /* Set line height to 1.5 times the font size
   and use the OS’s UI font as the website font
   */
-    margin: 0;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    font: 100%/1.5 system-ui;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f9f9f9; /* Optional: Add a subtle background color */
+  font: 100%/1.5 system-ui;
 }
 
 .container {
-    max-width: 800px;
-    margin-inline: auto; /* Centers the container horizontally */
-    padding: 20px;
-    box-sizing: border-box;
+  max-width: 800px;
+  margin-inline: auto; /* Centers the container horizontally */
+  padding: 20px; /* Adds padding inside the container */
+  padding-inline: 15px; /* Extra padding for smaller viewports */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+  background-color: #fff; /* Optional: Add a background color for contrast */
+  border-radius: 8px; /* Optional: Smooth rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
 nav {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 nav a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
 }
 
 nav a:hover {
-    color: #007BFF;
+  color: #007BFF;
 }
 
 h1 {
-    margin-top: 0;
+  margin-top: 0;
+}
+
+p {
+  line-height: 1.6; /* Improves readability */
 }
 
 img {
-    max-width: 100%; /* Ensures the image is responsive */
-    height: auto;
-    display: block;
-    margin-inline: auto; /* Centers the image horizontally */
+  max-width: 100%; /* Ensures the image is responsive */
+  height: auto;
+  display: block;
+  margin-inline: auto; /* Centers the image horizontally */
+  margin-top: 20px;
 }
