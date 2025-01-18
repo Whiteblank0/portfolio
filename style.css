@@ -85,3 +85,43 @@ form button {
   width: 100%;
   padding: 0.5em 1em;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 400%;
+  margin-block: 0.5em;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+}
+
+.projects article {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+}
+
+.projects article h2 {
+  margin: 0;
+}
+
+.projects article img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-block: 0.5em;
+}
+
+.projects article p {
+  margin-block: 0.5em;
+}
