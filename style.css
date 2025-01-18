@@ -11,9 +11,14 @@ body {
      and use the OS’s UI font as the website font
   */
   margin: 30;
-  margin-inline: max(1em, (100% - 100ch) / 2);
+  margin-inline: max(1em, (100% - 1200px) / 2);
   font: 100%/1.5 system-ui;
   padding: 30;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 nav ul,
