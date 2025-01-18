@@ -1,9 +1,5 @@
 :root {
   --color-accent: oklch(65% 30% 240);
-  --color-bg: #f9f9f9;
-  --color-text: #333;
-  --color-border: #ddd;
-  --color-heading: #007acc;
 }
 
 html {
@@ -128,25 +124,6 @@ h1 {
 
 .projects article p {
   margin-block: 0.5em;
-}
-
-h1 {
-  font-size: 3rem;
-  text-align: center;
-  color: var(--color-heading);
-  margin-bottom: 2rem;
-}
-
-h2 {
-  font-size: 1.5rem;
-  color: var(--color-heading);
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
 }
 
 section {
