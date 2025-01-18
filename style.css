@@ -13,7 +13,7 @@ body {
   margin: 30;
   margin-inline: max(1em, (100% - 100ch) / 2);
   font: 100%/1.5 system-ui;
-  padding: 10;
+  padding: 30;
 }
 
 nav ul,
