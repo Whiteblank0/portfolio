@@ -51,13 +51,6 @@ nav a:hover {
   border-bottom: 0.4em solid var(--color-accent);
   padding-bottom: 0.1em;
 }
-ß
-nav a.current {
-  color: #007acc;
-  font-weight: 700;
-  border-bottom: 0.4em solid oklch(80% 3% 200);
-  padding-bottom: 0.1em;
-}
 
 form input,
 form textarea,
