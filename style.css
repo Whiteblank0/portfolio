@@ -27,29 +27,41 @@ nav li {
 }
 
 nav {
+  --border-color: oklch(50% 10% 200 / 40%);
+  --hover-accent: oklch(65% 25% 230); /* Accent color for hover states */
+  
   display: flex;
   gap: 1rem;
-
   margin-bottom: 1rem;
-
-  border-bottom: 1px solid oklch(80% 3% 200);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 0;
 }
 
 nav a {
   flex: 1;
   color: inherit;
   text-decoration: none;
-
   text-align: center;
-
   font-weight: 600;
-
   padding: 0.5em;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 nav a:hover {
-  border-bottom: 0.4em solid var(--color-accent);
+  border-bottom: 0.4em solid var(--hover-accent);
   padding-bottom: 0.1em;
+}
+
+@media (prefers-color-scheme: dark) {
+  nav {
+    --border-color: oklch(30% 15% 200 / 40%);
+    --hover-accent: oklch(75% 30% 250); /* Adjusted for better visibility in dark mode */
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  nav a:hover {
+    border-bottom-color: var(--hover-accent);
+  }
 }
 
 form input,
@@ -164,3 +176,8 @@ h1 {
 #projects article a:hover {
   text-decoration: underline;
 }
+
+html {
+  color-scheme: light dark;
+}
+
