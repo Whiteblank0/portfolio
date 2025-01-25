@@ -194,5 +194,7 @@ html {
 
 .color-scheme select {
   font-size: inherit;
-  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  color: inherit;
 }
