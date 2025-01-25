@@ -181,3 +181,19 @@ html {
   color-scheme: light dark;
 }
 
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%; /* Make it slightly smaller */
+  font-family: inherit; /* Use the parent's font */
+  background-color: var(--background, white); /* Optional for contrast */
+  border: 1px solid var(--border-color, lightgray); /* Optional for visibility */
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.color-scheme select {
+  font-size: inherit;
+  padding: 0.25rem;
+}

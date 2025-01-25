@@ -55,3 +55,47 @@ for (let p of pages) {
   // Append the link to <nav>
   nav.append(a);
 }
+
+document.body.insertAdjacentHTML(
+  'afterbegin',
+  `
+  <label class="color-scheme">
+    Theme:
+    <select id="theme-switcher">
+      <option value="light dark">Automatic</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </label>
+  `
+);
+
+const themeSwitcher = document.getElementById('theme-switcher');
+
+function updateColorScheme(value) {
+  document.documentElement.style.setProperty('color-scheme', value);
+  localStorage.setItem('color-scheme', value);
+}
+
+function getOSColorScheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark' : 'Light';
+}
+
+// Update "Automatic" label based on OS color scheme
+const automaticOption = themeSwitcher.querySelector('option[value="light dark"]');
+automaticOption.textContent = `Automatic (${getOSColorScheme()})`;
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  automaticOption.textContent = `Automatic (${getOSColorScheme()})`;
+});
+
+// Restore saved preference or default to "Automatic"
+const savedScheme = localStorage.getItem('color-scheme') || 'light dark';
+themeSwitcher.value = savedScheme;
+updateColorScheme(savedScheme);
+
+// Add event listener for dropdown changes
+themeSwitcher.addEventListener('change', (event) => {
+  const selectedValue = event.target.value;
+  updateColorScheme(selectedValue);
+});
