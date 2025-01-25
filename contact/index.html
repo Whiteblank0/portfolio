@@ -1,26 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yaoxi Li: Contact</title>
-    <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yaoxi Li: Contact</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    
-    <h1>Contact</h1>
-    <script type="module" src="../global.js"></script>
-    <form action="mailto:yal149@ucsd.edu" method="POST" enctype="text/plain">
-        <label for="email">Email:</label>
-        <input id="email" name="email" type="email" required>
-        <br>
-        <label for="subject">Subject:</label>
-        <input id="subject" name="subject">
-        <br>
-        <label for="body">Body:</label>
-        <textarea id="body" name="body"></textarea>
-        <br>
-        <button>Submit</button>
-    </form>
+  
+  <h1>Contact</h1>
+  
+  <script type="module" src="../global.js"></script>
+
+  <!-- Form: No `method="POST"` or `enctype="text/plain"` -->
+  <form action="mailto:yal149@ucsd.edu">
+    <label for="subject">Subject:</label>
+    <input id="subject" name="subject" type="text" required>
+    <br>
+
+    <label for="body">Message:</label>
+    <textarea id="body" name="body" rows="5" required></textarea>
+    <br>
+
+    <button type="submit">Send Email</button>
+  </form>
+
+  <script>
+    // OPTIONAL: If you're putting all code in global.js, remove this inline script
+    // and place it there. If you prefer inline, you can keep it here.
+
+    // Select the form that has a mailto action
+    const form = document.querySelector('form[action^="mailto"]');
+
+    if (form) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Stop the default mailto behavior
+
+        // Gather the form data
+        const data = new FormData(form);
+
+        // Build query string (e.g. ?subject=Hello&body=Hi%20there)
+        let params = [];
+        for (let [name, value] of data) {
+          const encodedName = encodeURIComponent(name);
+          const encodedValue = encodeURIComponent(value);
+          params.push(`${encodedName}=${encodedValue}`);
+        }
+
+        // Combine into a single string
+        const queryString = params.join('&');
+        // Create the final mailto URL
+        const mailtoUrl = form.action + '?' + queryString;
+
+        // Navigate to this URL, which opens the mail client
+        location.href = mailtoUrl;
+      });
+    }
+  </script>
 </body>
 </html>

@@ -99,3 +99,33 @@ themeSwitcher.addEventListener('change', (event) => {
   const selectedValue = event.target.value;
   updateColorScheme(selectedValue);
 });
+
+// Try to get the form element (in case this script runs on pages without a form)
+const form = document.querySelector('form[action^="mailto"]');
+
+form?.addEventListener('submit', function (event) {
+  // Stop the form from submitting the default way
+  event.preventDefault();
+
+  // Create a FormData object from the form
+  const data = new FormData(form);
+  
+  // Build the query parameters (subject=...&body=...)
+  let params = [];
+
+  for (let [name, value] of data) {
+    // Encode both the key and the value to avoid special character issues
+    const encodedName = encodeURIComponent(name);
+    const encodedValue = encodeURIComponent(value);
+    params.push(`${encodedName}=${encodedValue}`);
+  }
+
+  // Join the parameters with &
+  const queryString = params.join('&');
+
+  // mailto URL = form.action + "?" + queryString
+  const url = form.action + '?' + queryString;
+
+  // Navigate to this URL, which opens the mail client
+  location.href = url;
+});

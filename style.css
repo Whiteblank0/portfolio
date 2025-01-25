@@ -197,3 +197,16 @@ html {
   font-size: inherit;
   padding: 0.25rem;
 }
+
+@media (prefers-color-scheme: dark) {
+  .color-scheme {
+    background-color: #333; /* something dark */
+    border-color: #555;
+  }
+
+  .color-scheme select {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+  }
+}
