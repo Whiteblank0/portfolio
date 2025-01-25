@@ -187,7 +187,6 @@ html {
   right: 1rem;
   font-size: 80%; /* Make it slightly smaller */
   font-family: inherit; /* Use the parent's font */
-  background-color: var(--background, white); /* Optional for contrast */
   border: 1px solid var(--border-color, lightgray); /* Optional for visibility */
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -196,17 +195,4 @@ html {
 .color-scheme select {
   font-size: inherit;
   padding: 0.25rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  .color-scheme {
-    background-color: #333; /* something dark */
-    border-color: #555;
-  }
-
-  .color-scheme select {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
-  }
 }
