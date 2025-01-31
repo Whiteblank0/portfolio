@@ -152,3 +152,59 @@ export async function fetchJSON(url) {
       console.error('Error fetching or parsing JSON data:', error);
   }
 }
+
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  // Ensure the containerElement is valid
+  if (!containerElement || !(containerElement instanceof HTMLElement)) {
+      console.error('Invalid containerElement provided');
+      return;
+  }
+
+  // Validate the headingLevel to ensure it's an appropriate heading tag
+  const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  if (!validHeadingLevels.includes(headingLevel)) {
+      console.warn(`Invalid headingLevel "${headingLevel}", defaulting to "h2".`);
+      headingLevel = 'h2';
+  }
+
+  // Clear existing content to prevent duplication
+  containerElement.innerHTML = '';
+
+  // Loop through the projects array and create an article for each project
+  projects.forEach(project => {
+      // Validate project data
+      if (!project.title || !project.description) {
+          console.warn('Skipping project due to missing title or description:', project);
+          return;
+      }
+
+      // Create an <article> element
+      const article = document.createElement('article');
+
+      // Create dynamic heading
+      const heading = document.createElement(headingLevel);
+      heading.textContent = project.title;
+
+      // Create an image element if an image URL is provided
+      const img = document.createElement('img');
+      if (project.image) {
+          img.src = project.image;
+          img.alt = project.title;
+      } else {
+          img.alt = 'No image available'; // Fallback for missing images
+          img.style.display = 'none'; // Hide image if missing
+      }
+
+      // Create a paragraph for the description
+      const description = document.createElement('p');
+      description.textContent = project.description;
+
+      // Append elements to the article
+      article.appendChild(heading);
+      article.appendChild(img);
+      article.appendChild(description);
+
+      // Append the article to the container
+      containerElement.appendChild(article);
+  });
+}
