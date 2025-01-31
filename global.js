@@ -129,3 +129,26 @@ form?.addEventListener('submit', function (event) {
   // Navigate to this URL, which opens the mail client
   location.href = url;
 });
+
+export async function fetchJSON(url) {
+  try {
+      // Fetch the JSON file from the given URL
+      const response = await fetch(url);
+
+      // Log the response object to the console
+      console.log('Response Object:', response);
+
+      // Check if the request was successful
+      if (!response.ok) {
+          throw new Error(`Failed to fetch projects: ${response.statusText}`);
+      }
+
+      // Parse the JSON data
+      const data = await response.json();
+      console.log('Fetched Data:', data); // Debugging: Log data to the console
+
+      return data;
+  } catch (error) {
+      console.error('Error fetching or parsing JSON data:', error);
+  }
+}

@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Lorem 4 words",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+        "title": "Another Project",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    }
+]
