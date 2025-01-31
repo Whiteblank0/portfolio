@@ -8,5 +8,60 @@
         "title": "Another Project",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+        "title": "Innovative Tech Solution",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Exploring cutting-edge technology to solve real-world problems with AI and automation."
+    },
+    {
+        "title": "Green Energy Initiative",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Developing sustainable energy solutions to reduce carbon footprints and promote renewable resources."
+    },
+    {
+        "title": "Smart Home Automation",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Creating intelligent home systems for enhanced security, efficiency, and comfort."
+    },
+    {
+        "title": "Next-Gen Data Visualization",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Building powerful and intuitive data visualization tools to transform complex datasets into insights."
+    },
+    {
+        "title": "Blockchain for Transparency",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Leveraging blockchain technology to enhance security and transparency in financial transactions."
+    },
+    {
+        "title": "AI-Powered Chatbot",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Developing an intelligent chatbot to assist users with real-time responses and automation."
+    },
+    {
+        "title": "Self-Driving Car Simulation",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Creating a simulation model to test autonomous driving algorithms in various environments."
+    },
+    {
+        "title": "Personal Finance Tracker",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "A budgeting tool that helps users track expenses and optimize their financial planning."
+    },
+    {
+        "title": "Virtual Reality Museum",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Designing an immersive virtual reality experience for exploring historical artifacts."
+    },
+    {
+        "title": "Cybersecurity Threat Detector",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Building a system to identify and prevent potential cybersecurity attacks in real-time."
+    },
+    {
+        "title": "Smart Agriculture System",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Developing IoT-based sensors and AI models to optimize farming and crop management."
     }
 ]
