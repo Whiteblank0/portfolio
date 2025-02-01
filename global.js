@@ -211,5 +211,5 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
 
 export async function fetchGitHubData(username) {
   // fetchJSON returns a Promise that resolves to the parsed JSON data.
-  return fetchJSON(`https://api.github.com/users/Whiteblank0`);
+  return fetchJSON(`https://api.github.com/users/${username}`);
 }
