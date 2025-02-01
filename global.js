@@ -153,6 +153,11 @@ export async function fetchJSON(url) {
   }
 }
 
+export async function fetchGitHubData(username) {
+  // fetchJSON returns a Promise that resolves to the parsed JSON data.
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}
+
 export function renderProjects(projects, containerElement, headingLevel = 'h2') {
   // Ensure the containerElement is valid
   if (!containerElement || !(containerElement instanceof HTMLElement)) {
@@ -207,9 +212,4 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
       // Append the article to the container
       containerElement.appendChild(article);
   });
-}
-
-export async function fetchGitHubData(username) {
-  // fetchJSON returns a Promise that resolves to the parsed JSON data.
-  return fetchJSON(`https://api.github.com/users/${username}`);
 }
