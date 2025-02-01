@@ -20,7 +20,7 @@ async function loadLatestProjects() {
 
 async function loadProfileStats() {
   // Replace 'your-username' with your actual GitHub username.
-  const githubData = await fetchGithubData('Whiteblank0');
+  const githubData = await fetchGitHubData('Whiteblank0');
   
   // Select the container with the id "profile-stats"
   const profileStats = document.querySelector('#profile-stats');
