@@ -1,66 +1,79 @@
 [
     {
         "title": "Lorem 4 words",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     },
     {
         "title": "Another Project",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     },
     {
         "title": "Innovative Tech Solution",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Exploring cutting-edge technology to solve real-world problems with AI and automation."
     },
     {
         "title": "Green Energy Initiative",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Developing sustainable energy solutions to reduce carbon footprints and promote renewable resources."
     },
     {
         "title": "Smart Home Automation",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Creating intelligent home systems for enhanced security, efficiency, and comfort."
     },
     {
         "title": "Next-Gen Data Visualization",
+        "year": "2023",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Building powerful and intuitive data visualization tools to transform complex datasets into insights."
     },
     {
         "title": "Blockchain for Transparency",
+        "year": "2023",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Leveraging blockchain technology to enhance security and transparency in financial transactions."
     },
     {
         "title": "AI-Powered Chatbot",
+        "year": "2023",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Developing an intelligent chatbot to assist users with real-time responses and automation."
     },
     {
         "title": "Self-Driving Car Simulation",
+        "year": "2023",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Creating a simulation model to test autonomous driving algorithms in various environments."
     },
     {
         "title": "Personal Finance Tracker",
+        "year": "2022",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "A budgeting tool that helps users track expenses and optimize their financial planning."
     },
     {
         "title": "Virtual Reality Museum",
+        "year": "2022",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Designing an immersive virtual reality experience for exploring historical artifacts."
     },
     {
         "title": "Cybersecurity Threat Detector",
+        "year": "2021",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Building a system to identify and prevent potential cybersecurity attacks in real-time."
     },
     {
         "title": "Smart Agriculture System",
+        "year": "2020",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Developing IoT-based sensors and AI models to optimize farming and crop management."
     }
