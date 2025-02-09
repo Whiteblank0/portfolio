@@ -77,16 +77,14 @@ let searchInput = document.querySelector('.searchBar');
 renderPieChart(projects);
 
 searchInput.addEventListener('input', (event) => {
-  // update query value
-  query = event.target.value;
-
   let projectsContainer = document.querySelector('.projects');
 
-  // filter the projects
-  let filteredProjects = projects.filter((project) => {
-    let values = Object.values(project).join('\n').toLowerCase();
-    return values.includes(query.toLowerCase());
-  });
+  query = event.target.value.toLowerCase();
+
+  let filteredProjects = projects
+    .filter((project) => project.title.toLowerCase().includes(query)) // Title filter
+    .filter((project) => selectedIndex === -1 || project.year === 
+    data[selectedIndex].label); // Year filter
 
   // render updated projects!
   renderProjects(filteredProjects, projectsContainer, 'h2');
