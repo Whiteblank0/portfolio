@@ -33,6 +33,7 @@ let sliceGenerator = d3.pie();
 let arcData = sliceGenerator(data);
 
 // Create the path data for each arc using your arcGenerator function
+let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 let arcs = arcData.map((d) => arcGenerator(d));
 
 // Create an ordinal color scale using a predefined D3 scheme
