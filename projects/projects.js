@@ -1,31 +1,24 @@
 import { fetchJSON, renderProjects } from '../global.js';
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
-async function loadProjects() {
-  // Fetch the projects from the JSON file
-  const projects = await fetchJSON('../lib/projects.json');
+// Fetch the projects from the JSON file
+const projects = await fetchJSON('../lib/projects.json');
 
-  // Select the container for the projects
-  const projectsContainer = document.querySelector('.projects');
-  if (!projectsContainer) {
-    console.error('No element with class "projects" found.');
-    return;
-  }
+// Select the container for the projects
+const projectsContainer = document.querySelector('.projects');
 
-  // Render the projects
-  renderProjects(projects, projectsContainer, 'h2');
+// Render the projects
+renderProjects(projects, projectsContainer, 'h2');
 
-  // **New Code**: Update the .projects-title element with the project count
-  const projectsTitle = document.querySelector('.projects-title');
-  if (projectsTitle) {
-    projectsTitle.textContent = `${projects.length} Projects`;
-  }
+// **New Code**: Update the .projects-title element with the project count
+const projectsTitle = document.querySelector('.projects-title');
+if (projectsTitle) {
+  projectsTitle.textContent = `${projects.length} Projects`;
 }
 
 // Load projects when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', loadProjects);
 
-let projects = await fetchJSON('../lib/projects.json');
 let rolledData = d3.rollups(
   projects,
   (v) => v.length,
