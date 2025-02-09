@@ -78,18 +78,13 @@ let query = '';
 let searchInput = document.querySelector('.searchBar');
 
 
-searchInput.addEventListener('change', (event) => {
-  // update query value
-  query = event.target.value;
+searchInput.addEventListener('input', (event) => {
+    query = event.target.value.toLowerCase(); // Convert query to lowercase
 
-  // Use the projectsContainer defined in the wider scope
-  // let projectsContainer = document.querySelector('.projects'); // No need to redefine here
-
-  // filter the projects
-  let filteredProjects = projects.filter((project) => {
-    let values = Object.values(project).join('\n').toLowerCase();
-    return values.includes(query.toLowerCase());
-  });
+    // Filter projects only based on their titles (case-insensitive)
+    let filteredProjects = projects.filter((project) =>
+      project.title.toLowerCase().includes(query)
+    );
 
   // render updated projects!
   renderProjects(filteredProjects, projectsContainer, 'h2');
@@ -210,4 +205,4 @@ if (selectedIndex === -1) {
     let chosenYear = data[selectedIndex].label;
     let filtered = projects.filter((p) => p.year === chosenYear);
     renderProjects(filtered, projectsContainer, 'h2'); // projectsContainer is now in scope
-  }
+}
