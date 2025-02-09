@@ -1,19 +1,28 @@
 import { fetchJSON, renderProjects } from '../global.js';
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
-// Fetch the projects from the JSON file
-const projects = await fetchJSON('../lib/projects.json');
+let projects;
+let projectsContainer;
 
-// Select the container for the projects
-const projectsContainer = document.querySelector('.projects');
+async function loadProjects() {
+  // Fetch the projects from the JSON file
+  const projects = await fetchJSON('../lib/projects.json');
 
-// Render the projects
-renderProjects(projects, projectsContainer, 'h2');
+  // Select the container for the projects
+  const projectsContainer = document.querySelector('.projects');
+  if (!projectsContainer) {
+    console.error('No element with class "projects" found.');
+    return;
+  }
 
-// **New Code**: Update the .projects-title element with the project count
-const projectsTitle = document.querySelector('.projects-title');
-if (projectsTitle) {
-  projectsTitle.textContent = `${projects.length} Projects`;
+  // Render the projects
+  renderProjects(projects, projectsContainer, 'h2');
+
+  // **New Code**: Update the .projects-title element with the project count
+  const projectsTitle = document.querySelector('.projects-title');
+  if (projectsTitle) {
+    projectsTitle.textContent = `${projects.length} Projects`;
+  }
 }
 
 // Load projects when the DOM is fully loaded
