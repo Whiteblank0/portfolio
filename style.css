@@ -150,6 +150,14 @@ h1 {
   line-height: 1.4;
 }
 
+/* Override for dark mode */
+@media (prefers-color-scheme: dark) {
+  .projects article {
+    background-color: #2b2b2b; /* Dark background */
+    color: #ddd;              /* Light text */
+  }
+}
+
 /* Year styling (optional) */
 .project-year {
   font-size: 0.9em;
@@ -182,7 +190,7 @@ h1 {
   display: inline-block;
 }
 
-.projects article {
+#projects article {
   /* Use Flexbox in a vertical direction so elements stack cleanly */
   display: flex;
   flex-direction: column;
