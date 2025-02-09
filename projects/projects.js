@@ -68,3 +68,79 @@ data.forEach((d, idx) => {
       ${d.label} <em>(${d.value})</em>
     `);
 });
+
+let query = '';
+
+let searchInput = document.querySelector('.searchBar');
+
+searchInput.addEventListener('change', (event) => {
+  // update query value
+  query = event.target.value;
+
+  // filter the projects
+  let filteredProjects = projects.filter((project) => {
+    let values = Object.values(project).join('\n').toLowerCase();
+    return values.includes(query.toLowerCase());
+  });
+
+  // render updated projects!
+  renderProjects(filteredProjects, projectsContainer, 'h2');
+
+  // Re-render the pie chart and legend
+  renderPieChart(filteredProjects);
+});
+
+// Refactor all plotting into one function
+function renderPieChart(projectsGiven) {
+  // 1. Group your data by year and count
+  let rolledData = d3.rollups(
+    projectsGiven,
+    (v) => v.length,
+    (d) => d.year
+  );
+  // 2. Convert into { value, label } form
+  let data = rolledData.map(([year, count]) => ({
+    value: count,
+    label: year,
+  }));
+
+  // 3. Clear old paths and legend items
+  let svg = d3.select('svg');
+  svg.selectAll('path').remove();
+
+  let legend = d3.select('.legend');
+  legend.selectAll('li').remove();
+
+  // 4. Set up pie chart arcs
+  let sliceGenerator = d3.pie().value((d) => d.value);
+  let arcData = sliceGenerator(data);
+  let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
+  let arcs = arcData.map((d) => arcGenerator(d));
+
+  // 5. Define color scale
+  let colors = d3.scaleOrdinal(d3.schemeTableau10);
+
+  // 6. Draw the paths (center them if necessary)
+  //    Optionally, use a <g> transform to center.
+  let g = svg
+    .append('g')
+    ;
+
+  arcs.forEach((arc, idx) => {
+    g
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', colors(idx));
+  });
+
+  // 7. Create legend items
+  data.forEach((d, idx) => {
+    legend
+      .append('li')
+      .attr('style', `--color:${colors(idx)}`)
+      .html(`
+        <span class="swatch"></span>
+        ${d.label} <em>(${d.value})</em>
+      `);
+  });
+}
