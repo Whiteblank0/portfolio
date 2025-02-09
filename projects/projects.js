@@ -79,12 +79,16 @@ let searchInput = document.querySelector('.searchBar');
 
 
 searchInput.addEventListener('input', (event) => {
-    query = event.target.value.toLowerCase(); // Convert query to lowercase
+  // update query value
+  query = event.target.value;
 
-    // Filter projects only based on their titles (case-insensitive)
-    let filteredProjects = projects.filter((project) =>
-      project.title.toLowerCase().includes(query)
-    );
+  let projectsContainer = document.querySelector('.projects');
+
+  // filter the projects
+  let filteredProjects = projects.filter((project) => {
+    let values = Object.values(project).join('\n').toLowerCase();
+    return values.includes(query.toLowerCase());
+  });
 
   // render updated projects!
   renderProjects(filteredProjects, projectsContainer, 'h2');
