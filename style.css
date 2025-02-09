@@ -289,12 +289,12 @@ svg path {
   --color: oklch(60% 45% 0) !important;
 }
 
-/* For <path> elements that have class selected, override the fill color */
+/* Example color override: force a specific fill */
 .selected:is(path) {
-  fill: var(--color);
+  fill: oklch(60% 45% 0 / 1) !important; /* Bright highlight color */
 }
 
-/* For <li> elements that have class selected, override the background or swatch */
+/* If you also want the legend item’s swatch to highlight */
 .selected:is(li) .swatch {
-  background: var(--color);
+  background-color: oklch(60% 45% 0 / 1) !important;
 }

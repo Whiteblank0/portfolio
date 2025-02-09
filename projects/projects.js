@@ -1,204 +1,154 @@
 import { fetchJSON, renderProjects } from '../global.js';
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
-async function loadProjects() {
-  // Fetch the projects from the JSON file
-  const projects = await fetchJSON('../lib/projects.json');
+// Global variables
+let projects = [];
+let query = '';
+let selectedIndex = -1;
+let projectsContainer;
 
-  // Select the container for the projects
-  const projectsContainer = document.querySelector('.projects');
+// Fetch projects and initialize everything on DOM load
+document.addEventListener('DOMContentLoaded', async () => {
+  // Load data
+  projects = await fetchJSON('../lib/projects.json');
+
+  // Select container for project listings
+  projectsContainer = document.querySelector('.projects');
   if (!projectsContainer) {
     console.error('No element with class "projects" found.');
     return;
   }
 
-  // Render the projects
+  // Render the full list of projects initially
   renderProjects(projects, projectsContainer, 'h2');
 
-  // **New Code**: Update the .projects-title element with the project count
+  // Update the .projects-title with project count
   const projectsTitle = document.querySelector('.projects-title');
   if (projectsTitle) {
     projectsTitle.textContent = `${projects.length} Projects`;
   }
+
+  // Set up the search listener for instant filtering
+  const searchInput = document.querySelector('.searchBar');
+  searchInput.addEventListener('input', handleSearch);
+
+  // Finally, render the pie chart with all projects initially
+  renderPieChart(projects);
+});
+
+/**
+ * Combine both search and wedge filtering to get the final filtered set.
+ */
+function getFilteredProjects() {
+  // 1) Filter by search query in project titles
+  let titleFiltered = projects.filter((p) =>
+    p.title.toLowerCase().includes(query.toLowerCase())
+  );
+
+  // 2) Filter by selected wedge/year (if any wedge is selected)
+  if (selectedIndex === -1) {
+    // -1 => no wedge selected => no further filtering needed
+    return titleFiltered;
+  } else {
+    // Some wedge is selected => filter by its year
+    let wedgeYear = currentPieData[selectedIndex].label;
+    return titleFiltered.filter((p) => p.year === wedgeYear);
+  }
 }
 
-// Load projects when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', loadProjects);
+/**
+ * Handle the "input" event from the search bar: update query and re-filter.
+ */
+function handleSearch(event) {
+  query = event.target.value; // store the new search text
+  let filtered = getFilteredProjects();
 
-let projects = await fetchJSON('../lib/projects.json');
+  // Update project listing
+  renderProjects(filtered, projectsContainer, 'h2');
+  // Update pie chart & legend to reflect new data
+  renderPieChart(filtered);
+}
 
-let rolledData = d3.rollups(
-  projects,
-  (v) => v.length,
-  (d) => d.year,
-);
+/**
+ * Current data used for the pie chart (so we can read labels in the click handler).
+ * We’ll store it at module-scope so the wedge click can see it.
+ */
+let currentPieData = [];
 
-// New data array with more values
-let data = rolledData.map(([year, count]) => {
-  return { value: count, label: year };
-});
-
-// Generate pie slices using d3.pie()
-let sliceGenerator = d3.pie().value((d) => d.value);
-let arcData = sliceGenerator(data);
-
-// Create the path data for each arc using your arcGenerator function
-let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
-let arcs = arcData.map((d) => arcGenerator(d));
-
-// Create an ordinal color scale using a predefined D3 scheme
-let colors = d3.scaleOrdinal(d3.schemeTableau10);
-
-// Append a <path> element for each arc and assign it a color from the scale
-arcs.forEach((arc, idx) => {
-  d3.select('svg')
-    .append('path')
-    .attr('d', arc)
-    .attr('fill', colors(idx));  // Use the scale function to pick a color
-});
-
-// Assume you have a color scale (colors) and data with {value, label}.
-let legend = d3.select('.legend');
-
-data.forEach((d, idx) => {
-  legend
-    .append('li')
-    .attr('style', `--color: ${colors(idx)}`) // pass color to a CSS variable
-    .html(`
-      <span class="swatch"></span>
-      ${d.label} <em>(${d.value})</em>
-    `);
-});
-
-let query = '';
-
-let searchInput = document.querySelector('.searchBar');
-
-renderPieChart(projects);
-
-searchInput.addEventListener('input', (event) => {
-  let projectsContainer = document.querySelector('.projects');
-
-  query = event.target.value.toLowerCase();
-
-  let filteredProjects = projects
-    .filter((project) => project.title.toLowerCase().includes(query)) // Title filter
-    .filter((project) => selectedIndex === -1 || project.year === 
-    data[selectedIndex].label); // Year filter
-
-  // render updated projects!
-  renderProjects(filteredProjects, projectsContainer, 'h2');
-
-  // Re-render the pie chart and legend
-  renderPieChart(filteredProjects);
-});
-
-// Refactor all plotting into one function
+/**
+ * Renders the pie chart and legend from the given set of projects.
+ */
 function renderPieChart(projectsGiven) {
-  // 1. Group your data by year and count
+  // 1. Group data by year => array of [year, count]
   let rolledData = d3.rollups(
     projectsGiven,
-    (v) => v.length,
+    (group) => group.length,
     (d) => d.year
   );
-  // 2. Convert into { value, label } form
-  let data = rolledData.map(([year, count]) => ({
+
+  // 2. Convert into { value, label } objects
+  currentPieData = rolledData.map(([year, count]) => ({
     value: count,
     label: year,
   }));
 
-  // 3. Clear old paths and legend items
+  // 3. Clear old paths & legend items
   let svg = d3.select('svg');
-  svg.selectAll('path').remove();
+  svg.selectAll('*').remove();  // remove old content
 
   let legend = d3.select('.legend');
-  legend.selectAll('li').remove();
+  legend.selectAll('*').remove(); // remove old legend items
 
-  // 4. Set up pie chart arcs
+  // 4. Pie/arc generation
   let sliceGenerator = d3.pie().value((d) => d.value);
-  let arcData = sliceGenerator(data);
+  let arcData = sliceGenerator(currentPieData);
+
   let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
   let arcs = arcData.map((d) => arcGenerator(d));
 
-  // 5. Define color scale
-  let colors = d3.scaleOrdinal(d3.schemeTableau10);
+  // 5. Color scale
+  let colorScale = d3.scaleOrdinal(d3.schemeTableau10);
 
-  // 6. Draw the paths (center them if necessary)
-  //    Optionally, use a <g> transform to center.
-  let g = svg
-    .append('g')
-    ;
+  // 6. Append a <g> to center (optional, if using viewBox transformation)
+  let g = svg.append('g');
+  
+  // 7. Draw arcs
+  arcs.forEach((arcPath, i) => {
+    // Append each wedge
+    g.append('path')
+      .attr('d', arcPath)
+      .attr('fill', colorScale(i))
+      // If it is the currently selected wedge, add "selected" class
+      .attr('class', i === selectedIndex ? 'selected' : null)
+      .on('click', () => {
+        // Toggle selection
+        selectedIndex = (selectedIndex === i) ? -1 : i;
 
-  arcs.forEach((arc, idx) => {
-    g
-      .append('path')
-      .attr('d', arc)
-      .attr('fill', colors(idx));
+        // After toggling, re-filter projects and re-render everything
+        let filteredProjects = getFilteredProjects();
+        renderProjects(filteredProjects, projectsContainer, 'h2');
+        renderPieChart(filteredProjects);
+      });
   });
 
-  // 7. Create legend items
-  data.forEach((d, idx) => {
+  // 8. Create legend items
+  currentPieData.forEach((d, i) => {
     legend
       .append('li')
-      .attr('style', `--color:${colors(idx)}`)
+      .attr('style', `--color:${colorScale(i)}`)
+      // If it's selected wedge, add "selected" class
+      .attr('class', i === selectedIndex ? 'selected' : null)
       .html(`
         <span class="swatch"></span>
         ${d.label} <em>(${d.value})</em>
-      `);
+      `)
+      .on('click', () => {
+        // Same logic as wedge
+        selectedIndex = (selectedIndex === i) ? -1 : i;
+
+        let filteredProjects = getFilteredProjects();
+        renderProjects(filteredProjects, projectsContainer, 'h2');
+        renderPieChart(filteredProjects);
+      });
   });
 }
-
-let selectedIndex = -1;
-
-arcs.forEach((arc, i) => {
-  let svg = d3.select('svg');
-  
-  svg
-    .append('path')
-    .attr('d', arc)
-    .attr('fill', colors(i))
-    .on('click', () => {
-      // Toggle selection
-      selectedIndex = (selectedIndex === i) ? -1 : i;
-      
-      // Update classes on ALL wedges
-      svg.selectAll('path')
-         .attr('class', (_, idx) => (idx === selectedIndex ? 'selected' : null));
-
-      // Also update classes on the legend items
-      legend.selectAll('li')
-            .attr('class', (_, idx) => (idx === selectedIndex ? 'selected' : null));
-
-      // Filter / re-render the projects list based on which wedge is selected
-      if (selectedIndex === -1) {
-        // No selection = show all projects
-        renderProjects(projects, projectsContainer, 'h2');
-      } else {
-        // Filter by the year for the selected wedge
-        let { label } = data[selectedIndex]; 
-        let filtered = projects.filter((p) => p.year === label);
-        renderProjects(filtered, projectsContainer, 'h2');
-      }
-    });
-});
-
-legend
-  .selectAll('li')
-  .data(data) // or arcs
-  .join('li')
-  .attr('style', (d, i) => `--color:${colors(i)}`)
-  .html((d) => `
-    <span class="swatch"></span>
-    ${d.label} <em>(${d.value})</em>
-  `)
-  .attr('class', (d, i) => (i === selectedIndex ? 'selected' : null)); // highlight if selected
-
-  if (selectedIndex === -1) {
-    // show all
-    renderProjects(projects, projectsContainer, 'h2');
-  } else {
-    // show only the projects that match the clicked wedge’s year
-    let chosenYear = data[selectedIndex].label;
-    let filtered = projects.filter((p) => p.year === chosenYear);
-    renderProjects(filtered, projectsContainer, 'h2');
-  }
