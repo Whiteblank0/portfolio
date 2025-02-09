@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 function getFilteredProjects() {
   // 1) Filter by search query in project titles
   let titleFiltered = projects.filter((p) =>
-    p.title.toLowerCase().includes(query.toLowerCase())
+    p.title.toLowerCase().includes(query.toLowerCase()) ||
+    p.description.toLowerCase().includes(query.toLowerCase())
   );
 
   // 2) Filter by selected wedge/year (if any wedge is selected)
