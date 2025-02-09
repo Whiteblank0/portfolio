@@ -159,18 +159,8 @@ export async function fetchGitHubData(username) {
 }
 
 export function renderProjects(projects, containerElement, headingLevel = 'h2') {
-  // Ensure the containerElement is valid
-  if (!containerElement || !(containerElement instanceof HTMLElement)) {
-      console.error('Invalid containerElement provided');
-      return;
-  }
-
   // Validate the headingLevel to ensure it's an appropriate heading tag
   const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-  if (!validHeadingLevels.includes(headingLevel)) {
-      console.warn(`Invalid headingLevel "${headingLevel}", defaulting to "h2".`);
-      headingLevel = 'h2';
-  }
 
   // Clear existing content to prevent duplication
   containerElement.innerHTML = '';
