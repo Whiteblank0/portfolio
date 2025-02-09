@@ -126,10 +126,10 @@ h1 {
 }
 
 .projects article img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin-block: 0.5em;
+  max-width: 100%;  /* Don’t exceed the article’s width */
+  height: auto;     /* Keep image proportions */
+  display: block;   /* Keep it on its own line */
+  margin-block: 0.5em; /* Spacing above and below the image */
 }
 
 .projects article p {
@@ -161,12 +161,19 @@ h1 {
 }
 
 .projects article {
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 0.5rem;
-  background-color: transparent;;
+  /* Use Flexbox in a vertical direction so elements stack cleanly */
+  display: flex;
+  flex-direction: column;
+  
+  /* Optional: add some spacing so elements aren’t jammed together */
+  gap: 0.5em;
+
+  /* A border or background can help visually separate each article */
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  padding: 1em;
 }
+
 
 #projects article a {
   color: var(--color-accent);
