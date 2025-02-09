@@ -106,34 +106,56 @@ h1 {
   margin-block: 0.5em;
 }
 
+/* The container that holds all the project cards */
 .projects {
   display: grid;
+  /* Control how many columns you want per row: 
+     adjust the minmax() to whatever card width you like. */
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
   gap: 1em;
+  margin-block: 2em; /* Add some top/bottom margin, if you like */
 }
 
+/* Each project card */
 .projects article {
-  display: grid;
-  grid-template-rows: subgrid;
-  grid-row: span 3;
-  padding: 0.5em;
+  /* Use a simple flex column so elements stack nicely */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+
+  /* Optional styles: border, padding, background color, etc. */
   border: 1px solid #ccc;
   border-radius: 0.25em;
+  padding: 1em;
+  background-color: #f8f9fa; /* Light grey, optional */
 }
 
+/* Project heading */
 .projects article h2 {
   margin: 0;
+  font-size: 1.2rem; /* Adjust as you like */
 }
 
+/* Project image */
 .projects article img {
-  max-width: 100%;  /* Don’t exceed the article’s width */
-  height: auto;     /* Keep image proportions */
-  display: block;   /* Keep it on its own line */
-  margin-block: 0.5em; /* Spacing above and below the image */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-inline: auto; /* Center the image horizontally, optional */
 }
 
+/* Project description text */
 .projects article p {
-  margin-block: 0.5em;
+  margin: 0.5em 0;
+  line-height: 1.4;
+}
+
+/* Year styling (optional) */
+.project-year {
+  font-size: 0.9em;
+  color: gray;
+  margin-top: auto; /* Push it to the bottom if you want it last in the card */
+  font-style: italic; 
 }
 
 #education article {
@@ -211,9 +233,4 @@ html {
   margin-block: 2em;
 
   overflow: visible;
-}
-
-.project-year {
-  font-size: 0.9em;
-  color: gray;
 }
