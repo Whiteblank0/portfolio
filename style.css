@@ -272,3 +272,29 @@ html {
   border-radius: 0.25em; /* slight rounding (or 50% for a circle) */
   display: inline-block;
 }
+
+&:has(path:hover) {
+  path:not(:hover) {
+    opacity: 0.5;
+  }
+}
+
+/* Smooth transitions on <path> elements */
+svg path {
+  transition: 300ms;
+  cursor: pointer; /* So the user knows it’s clickable */
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+}
+
+/* For <path> elements that have class selected, override the fill color */
+.selected:is(path) {
+  fill: var(--color);
+}
+
+/* For <li> elements that have class selected, override the background or swatch */
+.selected:is(li) .swatch {
+  background: var(--color);
+}

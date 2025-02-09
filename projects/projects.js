@@ -148,3 +148,56 @@ function renderPieChart(projectsGiven) {
       `);
   });
 }
+
+let selectedIndex = -1;
+
+arcs.forEach((arc, i) => {
+  svg
+    .append('path')
+    .attr('d', arc)
+    .attr('fill', colors(i))
+    .on('click', () => {
+      // Toggle selection
+      selectedIndex = (selectedIndex === i) ? -1 : i;
+      
+      // Update classes on ALL wedges
+      svg.selectAll('path')
+         .attr('class', (_, idx) => (idx === selectedIndex ? 'selected' : null));
+
+      // Also update classes on the legend items
+      legend.selectAll('li')
+            .attr('class', (_, idx) => (idx === selectedIndex ? 'selected' : null));
+
+      // Filter / re-render the projects list based on which wedge is selected
+      if (selectedIndex === -1) {
+        // No selection = show all projects
+        renderProjects(projects, projectsContainer, 'h2');
+      } else {
+        // Filter by the year for the selected wedge
+        let { label } = data[selectedIndex]; 
+        let filtered = projects.filter((p) => p.year === label);
+        renderProjects(filtered, projectsContainer, 'h2');
+      }
+    });
+});
+
+legend
+  .selectAll('li')
+  .data(data) // or arcs
+  .join('li')
+  .attr('style', (d, i) => `--color:${colors(i)}`)
+  .html((d) => `
+    <span class="swatch"></span>
+    ${d.label} <em>(${d.value})</em>
+  `)
+  .attr('class', (d, i) => (i === selectedIndex ? 'selected' : null)); // highlight if selected
+
+  if (selectedIndex === -1) {
+    // show all
+    renderProjects(projects, projectsContainer, 'h2');
+  } else {
+    // show only the projects that match the clicked wedge’s year
+    let chosenYear = data[selectedIndex].label;
+    let filtered = projects.filter((p) => p.year === chosenYear);
+    renderProjects(filtered, projectsContainer, 'h2');
+  }
