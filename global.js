@@ -190,6 +190,14 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
       const heading = document.createElement(headingLevel);
       heading.textContent = project.title;
 
+      // Create a paragraph element for the project year if provided
+      if (project.year) {
+          const yearElement = document.createElement('p');
+          yearElement.classList.add('project-year'); // Optional: add a class for styling
+          yearElement.textContent = `Year: ${project.year}`;
+          article.appendChild(yearElement);
+      }
+      
       // Create an image element if an image URL is provided
       const img = document.createElement('img');
       if (project.image) {

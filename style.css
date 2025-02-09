@@ -160,7 +160,7 @@ h1 {
   display: inline-block;
 }
 
-#projects article {
+.projects article {
   margin-bottom: 1rem;
   padding: 1rem;
   border: 1px solid var(--color-border);
@@ -204,4 +204,9 @@ html {
   margin-block: 2em;
 
   overflow: visible;
+}
+
+.project-year {
+  font-size: 0.9em;
+  color: gray;
 }
