@@ -116,6 +116,13 @@ h1 {
   margin-block: 2em; /* Add some top/bottom margin, if you like */
 }
 
+#projects-plot {
+  max-width: 20em;
+  margin-block: 2em;
+
+  overflow: visible;
+}
+
 /* Each project card */
 .projects article {
   /* Use a simple flex column so elements stack nicely */
@@ -234,11 +241,4 @@ html {
   background: transparent;
   border: none;
   color: inherit;
-}
-
-#projects-pie-plot {
-  max-width: 20em;
-  margin-block: 2em;
-
-  overflow: visible;
 }
