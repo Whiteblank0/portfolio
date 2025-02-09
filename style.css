@@ -116,13 +116,6 @@ h1 {
   margin-block: 2em; /* Add some top/bottom margin, if you like */
 }
 
-#projects-plot {
-  max-width: 20em;
-  margin-block: 2em;
-
-  overflow: visible;
-}
-
 /* Each project card */
 .projects article {
   /* Use a simple flex column so elements stack nicely */
@@ -247,6 +240,12 @@ html {
   display: flex;
   gap: 1em; /* spacing between the pie chart and the legend */
   align-items: center; /* or flex-start / center, etc. */
+}
+
+.container svg {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
 }
 
 .legend {
