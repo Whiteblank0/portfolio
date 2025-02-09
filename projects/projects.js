@@ -73,6 +73,8 @@ let query = '';
 
 let searchInput = document.querySelector('.searchBar');
 
+renderPieChart(projects);
+
 searchInput.addEventListener('change', (event) => {
   // update query value
   query = event.target.value;
