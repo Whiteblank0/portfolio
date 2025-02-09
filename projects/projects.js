@@ -25,6 +25,8 @@ async function loadProjects() {
 // Load projects when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', loadProjects);
 
+let projects = await fetchJSON('../lib/projects.json');
+
 let rolledData = d3.rollups(
   projects,
   (v) => v.length,
