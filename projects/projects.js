@@ -1,9 +1,6 @@
 import { fetchJSON, renderProjects } from '../global.js';
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
-let projects;
-let projectsContainer;
-
 async function loadProjects() {
   // Fetch the projects from the JSON file
   const projects = await fetchJSON('../lib/projects.json');
@@ -80,6 +77,8 @@ renderPieChart(projects);
 searchInput.addEventListener('change', (event) => {
   // update query value
   query = event.target.value;
+
+  let projectsContainer = document.querySelector('.projects');
 
   // filter the projects
   let filteredProjects = projects.filter((project) => {
