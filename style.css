@@ -242,3 +242,34 @@ html {
   border: none;
   color: inherit;
 }
+
+.container {
+  display: flex;
+  gap: 1em; /* spacing between the pie chart and the legend */
+  align-items: center; /* or flex-start / center, etc. */
+}
+
+.legend {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 1em; /* spacing between legend items */
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em; /* smaller gap inside each item to visually group it */
+}
+
+.legend li .swatch {
+  /* The custom property --color is set dynamically in D3 */
+  background: var(--color);
+  width: 1em;
+  height: 1em;
+  border-radius: 0.25em; /* slight rounding (or 50% for a circle) */
+  display: inline-block;
+}

@@ -26,10 +26,17 @@ async function loadProjects() {
 document.addEventListener('DOMContentLoaded', loadProjects);
 
 // New data array with more values
-let data = [1, 2, 3, 4, 5, 5];
+let data = [
+  { value: 1, label: 'apples' },
+  { value: 2, label: 'oranges' },
+  { value: 3, label: 'mangos' },
+  { value: 4, label: 'pears' },
+  { value: 5, label: 'limes' },
+  { value: 5, label: 'cherries' },
+];
 
 // Generate pie slices using d3.pie()
-let sliceGenerator = d3.pie();
+let sliceGenerator = d3.pie().value((d) => d.value);
 let arcData = sliceGenerator(data);
 
 // Create the path data for each arc using your arcGenerator function
@@ -45,4 +52,17 @@ arcs.forEach((arc, idx) => {
     .append('path')
     .attr('d', arc)
     .attr('fill', colors(idx));  // Use the scale function to pick a color
+});
+
+// Assume you have a color scale (colors) and data with {value, label}.
+let legend = d3.select('.legend');
+
+data.forEach((d, idx) => {
+  legend
+    .append('li')
+    .attr('style', `--color: ${colors(idx)}`) // pass color to a CSS variable
+    .html(`
+      <span class="swatch"></span>
+      ${d.label} <em>(${d.value})</em>
+    `);
 });
