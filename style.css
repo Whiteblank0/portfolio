@@ -198,3 +198,10 @@ html {
   border: none;
   color: inherit;
 }
+
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+
+  overflow: visible;
+}
