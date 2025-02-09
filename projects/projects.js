@@ -153,6 +153,8 @@ function renderPieChart(projectsGiven) {
 let selectedIndex = -1;
 
 arcs.forEach((arc, i) => {
+  let svg = d3.select('svg');
+  
   svg
     .append('path')
     .attr('d', arc)
