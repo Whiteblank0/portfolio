@@ -5,23 +5,12 @@ function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-// // Get all nav links
-// const navLinks = $$("nav a");
-
-// // Find the current link and add a 'current' class
-// let currentLink = navLinks.find(
-//   (a) => a.host === location.host && a.pathname === location.pathname
-// );
-
-// if (currentLink) {
-//   currentLink.classList.add('current');
-// }
-
 let pages = [
   { url: '', title: 'Home' },
   { url: 'projects/', title: 'Projects' },
   { url: 'contact/', title: 'Contact' },
-  { url: 'cv/', title: 'CV' },
+  { url: 'meta/', title: 'Meta' },
+  { url: 'cv/', title: 'CV' }
 ]
 
 // Detect if we are on the home page
