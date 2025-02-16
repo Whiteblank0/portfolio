@@ -401,3 +401,41 @@ circle.selected {
   stroke-dasharray: 5 3;
   animation: marching-ants 2s linear infinite;
 }
+
+/* Make the language breakdown match "graph 2" style */
+#language-breakdown {
+  /* Put each language "group" side by side */
+  display: flex;
+  justify-content: center;   /* Center them horizontally */
+  gap: 2em;                  /* Spacing between language groups */
+  text-align: center;        /* Center text in each group */
+  margin-top: 1em;
+}
+
+/* Each language group: 
+   dt = language name (uppercase, bold)
+   dd = lines count and percentage */
+#language-breakdown dt,
+#language-breakdown dd {
+  display: block;  /* Stack dt, dd, dd vertically within each group */
+  margin: 0;
+  line-height: 1.4;
+}
+
+#language-breakdown dt {
+  text-transform: uppercase; /* e.g., "CSS" */
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0.25em;     /* Space after the language name */
+}
+
+#language-breakdown dd:nth-of-type(1) {
+  font-size: 2em;            /* e.g., "82 lines" in larger font */
+  font-weight: 400;
+  margin-bottom: 0.25em;
+}
+
+#language-breakdown dd:nth-of-type(2) {
+  font-size: 1em;            /* e.g., "(23.6%)" in smaller font */
+  color: #666;               /* Slightly subdued color */
+}
