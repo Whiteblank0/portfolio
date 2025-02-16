@@ -402,23 +402,28 @@ circle.selected {
   animation: marching-ants 2s linear infinite;
 }
 
-#language-breakdown dt,
-#language-breakdown dd {
-  display: block; /* Ensure each item is on a new line */
-  /* Make it uppercase, bold, and larger */
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 1.2em;
-  
-  /* Add some spacing so they don’t run into each other */
-  margin: 0.5em 0;
-  line-height: 1.2;
+#language-breakdown {
+  display: flex;               /* Make items appear in a row */
+  justify-content: center;     /* Center everything */
+  gap: 2em;                    /* Add spacing between categories */
+  text-align: center;          /* Center text */
+  margin-top: 1em;
 }
 
-/* Ensure the language breakdown is displayed as a vertical list */
-#language-breakdown {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: flex-start; /* Align text to the left */
-  gap: 0.5em; /* Add spacing between items */
+#language-breakdown dt {
+  font-size: 1.2em;            /* Make language names slightly larger */
+  font-weight: bold;           /* Make them bold */
+  text-transform: uppercase;   /* Convert to uppercase */
+}
+
+#language-breakdown dd {
+  font-size: 1.5em;            /* Make the lines count large */
+  font-weight: bold;           /* Make them stand out */
+  margin-top: 0.25em;          /* Add a little space above */
+}
+
+#language-breakdown dd:last-child {
+  font-size: 1em;              /* Percentage in smaller text */
+  font-weight: normal;         /* Keep it regular */
+  color: #666;                 /* Make it a lighter gray */
 }
