@@ -98,12 +98,10 @@ async function loadData() {
 
   // Now display the stats using our computed data.
   displayStats();
+  
+  // Return commits so the caller can use them
+  return commits;
 }
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await loadData();
-  createScatterplot(commits);
-});
 
 // Function to create the scatterplot
 function createScatterplot(commits) {
@@ -214,14 +212,6 @@ function createScatterplot(commits) {
     // Raise the dots (and all elements after the overlay) so that tooltips work:
     d3.select(svg.node()).selectAll('.dots, .overlay ~ *').raise();
 }
-
-// Ensure the DOM is loaded before executing the script
-document.addEventListener('DOMContentLoaded', () => {
-  loadData().then((commits) => {
-    console.log('Commits data:', commits);
-    createScatterplot(commits);
-  });
-});
 
 function updateTooltipContent(commit) {
   const link = document.getElementById('commit-link');
@@ -335,3 +325,10 @@ function updateLanguageBreakdown() {
   }
   return breakdown;
 }
+
+// Wait for the DOM to load, then load data and create the scatterplot
+document.addEventListener('DOMContentLoaded', async () => {
+  const commitsData = await loadData();
+  console.log('Commits data:', commitsData);
+  createScatterplot(commits);
+});
