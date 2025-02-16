@@ -355,6 +355,7 @@ dl.info {
 #stats dl.stats dt {
   color: #6c757d;             /* Subdued label color */
   font-size: 0.75em;          /* Smaller label */
+  text-transform: uppercase;  /* Make label text uppercase */
   margin: 0;
 }
 
@@ -403,7 +404,7 @@ circle.selected {
 
 #language-breakdown dt,
 #language-breakdown dd {
-  display: block; /* Ensure each item is on a new line */
+  /* Make it uppercase, bold, and larger */
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1.2em;
@@ -411,14 +412,6 @@ circle.selected {
   /* Add some spacing so they don’t run into each other */
   margin: 0.5em 0;
   line-height: 1.2;
-}
-
-/* Ensure the language breakdown is displayed as a vertical list */
-#language-breakdown {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: flex-start; /* Align text to the left */
-  gap: 0.5em; /* Add spacing between items */
 }
 
 /* Optionally remove the default grid if you used .stats previously */
