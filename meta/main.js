@@ -134,8 +134,7 @@ function createScatterplot(commits) {
   // Create and add the axes
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale)
-    .tickValues(d3.range(0, 24))
-    .tickFormat(d => String(d).padStart(2, '0') + ':00');
+    .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00');
   svg.append('g')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
     .call(xAxis);

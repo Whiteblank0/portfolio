@@ -403,9 +403,7 @@ circle.selected {
 
 #language-breakdown dt,
 #language-breakdown dd {
-  /* Make the text vertical */
-  writing-mode: vertical-rl; /* or 'vertical-lr' if you prefer the other direction */
-  
+  display: block; /* Ensure each item is on a new line */
   /* Make it uppercase, bold, and larger */
   text-transform: uppercase;
   font-weight: bold;
