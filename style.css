@@ -403,27 +403,31 @@ circle.selected {
 }
 
 #language-breakdown {
-  display: flex;               /* Make items appear in a row */
-  justify-content: center;     /* Center everything */
-  gap: 2em;                    /* Add spacing between categories */
+  display: flex;               /* Put dt/dd pairs in a row */
+  gap: 2em;                    /* Spacing between each language pair */
+  justify-content: center;     /* Center them horizontally */
+  align-items: center;         /* Vertically center if needed */
+  margin-top: 1em;             /* Spacing above the breakdown */
   text-align: center;          /* Center text */
-  margin-top: 1em;
 }
 
-#language-breakdown dt {
-  font-size: 1.2em;            /* Make language names slightly larger */
-  font-weight: bold;           /* Make them bold */
-  text-transform: uppercase;   /* Convert to uppercase */
-}
-
+/* Make dt and dd inline so they appear on the same line */
+#language-breakdown dt,
 #language-breakdown dd {
-  font-size: 1.5em;            /* Make the lines count large */
-  font-weight: bold;           /* Make them stand out */
-  margin-top: 0.25em;          /* Add a little space above */
+  display: inline;
+  margin: 0;
+  padding: 0;
 }
 
-#language-breakdown dd:last-child {
-  font-size: 1em;              /* Percentage in smaller text */
-  font-weight: normal;         /* Keep it regular */
-  color: #666;                 /* Make it a lighter gray */
+/* dt: bold, uppercase for the language name */
+#language-breakdown dt {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-right: 0.3em; /* Slight space before lines info */
+}
+
+/* dd: normal weight for lines/percent */
+#language-breakdown dd {
+  font-weight: normal;
+  margin-right: 1em;   /* Space between language sets */
 }
