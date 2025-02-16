@@ -102,6 +102,7 @@ async function loadData() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadData();
+  createScatterplot(commits);
 });
 
 // Function to create the scatterplot
@@ -196,7 +197,7 @@ function createScatterplot(commits) {
     .style('fill-opacity', 0.7)
     .on('mouseenter', function (event, d, i) {
       d3.select(event.currentTarget).style('fill-opacity', 1); // Full opacity on hover
-      updateTooltipContent(commit);
+      updateTooltipContent(d);
       updateTooltipVisibility(true);
       updateTooltipPosition(event);
     })
