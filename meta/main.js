@@ -1,20 +1,6 @@
 let data = [];
 let commits = [];
 
-async function loadData() {
-  data = await d3.csv('loc.csv', (row) => ({
-    ...row,
-    line: Number(row.line),
-    depth: Number(row.depth),
-    length: Number(row.length),
-    date: new Date(row.date + 'T00:00' + row.timezone),
-    datetime: new Date(row.datetime),
-  }));
-
-  processCommits();
-  console.log(commits);
-}
-
 function processCommits() {
   commits = d3.groups(data, (d) => d.commit)
     .map(([commit, lines]) => {
@@ -116,3 +102,143 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadData();
 });
 
+// Function to create the scatterplot
+function createScatterplot(commits) {
+  // Define dimensions
+  const width = 1000;
+  const height = 600;
+
+  // Define margins and usable area
+  const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+  const usableArea = {
+    top: margin.top,
+    right: width - margin.right,
+    bottom: height - margin.bottom,
+    left: margin.left,
+    width: width - margin.left - margin.right,
+    height: height - margin.top - margin.bottom,
+  };
+
+  // Create the SVG container
+  const svg = d3.select('#chart')
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .style('overflow', 'visible');
+
+  // Create scales
+  const xScale = d3.scaleTime()
+    .domain(d3.extent(commits, (d) => d.datetime))
+    .range([usableArea.left, usableArea.right])
+    .nice();
+
+  const yScale = d3.scaleLinear()
+    .domain([0, 24])
+    .range([usableArea.bottom, usableArea.top]);
+
+  // Add gridlines BEFORE the axes
+  const gridlines = svg.append('g')
+    .attr('class', 'gridlines')
+    .attr('transform', `translate(${usableArea.left}, 0)`);
+
+  gridlines.call(
+    d3.axisLeft(yScale)
+      .tickFormat('')
+      .tickSize(-usableArea.width)
+  );
+
+  gridlines.selectAll('.tick line')
+  .attr('stroke', d => {
+    // Assuming d is a numeric hour from 0 to 24:
+    // Daytime: 06:00-18:00 (orange), Night: otherwise (blue)
+    if (d >= 6 && d <= 18) {
+      return '#ff7f0e'; // Orangish for daytime
+    } else {
+      return '#1f77b4'; // Bluer for night times
+    }
+  });
+
+  // Create and add the axes
+  const xAxis = d3.axisBottom(xScale);
+  // Format the Y axis ticks as times
+  const yAxis = d3.axisLeft(yScale)
+    .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00');
+
+  // Add X axis
+  svg.append('g')
+    .attr('transform', `translate(0, ${usableArea.bottom})`)
+    .call(xAxis);
+
+  // Add Y axis
+  svg.append('g')
+    .attr('transform', `translate(${usableArea.left}, 0)`)
+    .call(yAxis);
+
+  // Draw the dots (render these after the axes to ensure they appear above the axes if needed)
+  const dots = svg.append('g').attr('class', 'dots');
+  dots.selectAll('circle')
+    .data(commits)
+    .join('circle')
+    .attr('cx', (d) => xScale(d.datetime))
+    .attr('cy', (d) => yScale(d.hourFrac))
+    .attr('r', 5)
+    .attr('fill', 'steelblue')
+    .on('mouseenter', (event, commit) => {
+      updateTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on('mouseleave', () => {
+      updateTooltipContent({});
+      updateTooltipVisibility(false);
+    });
+}
+
+// Ensure the DOM is loaded before executing the script
+document.addEventListener('DOMContentLoaded', () => {
+  loadData().then((commits) => {
+    console.log('Commits data:', commits);
+    createScatterplot(commits);
+  });
+});
+
+function updateTooltipContent(commit) {
+  const link = document.getElementById('commit-link');
+  const date = document.getElementById('commit-date');
+
+  if (Object.keys(commit).length === 0) return;
+
+  link.href = commit.url;
+  link.textContent = commit.id;
+  date.textContent = commit.datetime?.toLocaleString('en', {
+    dateStyle: 'full',
+  });
+}
+
+function updateTooltipVisibility(isVisible) {
+  const tooltip = document.getElementById('commit-tooltip');
+  tooltip.hidden = !isVisible;
+}
+
+function updateTooltipContent(commit) {
+  const link = document.getElementById('commit-link');
+  const date = document.getElementById('commit-date');
+
+  // If the commit object is empty, clear the content (or simply return)
+  if (Object.keys(commit).length === 0) {
+    link.textContent = '';
+    link.href = '';
+    date.textContent = '';
+    return;
+  }
+
+  // Update the tooltip content based on the commit data
+  link.href = commit.url;
+  link.textContent = commit.id;
+  date.textContent = commit.datetime?.toLocaleString('en', { dateStyle: 'full' });
+}
+
+function updateTooltipPosition(event) {
+  const tooltip = document.getElementById('commit-tooltip');
+  tooltip.style.left = `${event.clientX}px`;
+  tooltip.style.top = `${event.clientY}px`;
+}

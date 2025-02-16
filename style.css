@@ -298,3 +298,56 @@ svg path {
 .selected:is(li) .swatch {
   background-color: oklch(60% 45% 0 / 1) !important;
 }
+
+.gridlines line {
+  stroke: #ccc;
+  stroke-opacity: 0.5;
+}
+
+/* Style for all <dl> elements that provide information */
+dl.info {
+  display: grid;
+  grid-template-columns: max-content auto;
+  gap: 0.5em 1em;
+  margin: 0;
+  padding: 0.5em;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+/* Position the tooltip at the top left of the viewport */
+.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  z-index: 10;
+}
+
+/* Tooltip styling */
+.info.tooltip {
+  background-color: rgba(255, 255, 255, 0.9); /* white with slight transparency */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  /* subtle shadow */
+  border-radius: 4px;                           /* rounded corners */
+  padding: 0.5em 1em;                           /* comfortable spacing */
+  backdrop-filter: blur(4px);                   /* optional frosted glass effect */
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+  pointer-events: none;                         /* so it doesn't interfere with mouse events */
+}
+
+/* When hidden (and not hovered/focused), make it invisible */
+.info.tooltip[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Basic transition and scaling for circles */
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
+}
