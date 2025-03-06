@@ -16,6 +16,18 @@
     <h2>Summary</h2>
   </header>
   
+  <div id="chart">
+    <!-- Filtering UI placed above the scatterplot -->
+    <div id="time-control">
+      <label for="timeSlider">
+        Show commits until: 
+        <input type="range" id="timeSlider" min="0" max="100" value="100">
+      </label>
+      <time id="selectedTime"></time>
+    </div>
+    <!-- The scatterplot will be appended here by D3 -->
+  </div>
+  
   <div id="stats"></div>
   
   <header>

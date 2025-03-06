@@ -1,7 +1,10 @@
 let data = [];
 let commits = [];
-// Global variable to store the current brush selection (null if none)
-let brushSelection = null;
+let brushSelection = null; // Global variable to store the current brush selection (null if none)
+let selectedCommits = [];
+let commitProgress = 100;
+let timeScale = d3.scaleTime([d3.min(commits, d => d.datetime), d3.max(commits, d => d.datetime)], [0, 100]);
+let commitMaxTime = timeScale.invert(commitProgress);
 
 function processCommits() {
   commits = d3.groups(data, d => d.commit)
@@ -160,25 +163,24 @@ function createScatterplot(commits) {
     .attr('fill', 'steelblue')
     .style('fill-opacity', 0.7)
     .on('mouseenter', function(event, d) {
-      d3.select(event.currentTarget).style('fill-opacity', 1);
+      d3.select(event.currentTarget)
+        .style('fill-opacity', 1)
+        .classed('selected', isCommitSelected(d));
       updateTooltipContent(d);
       updateTooltipVisibility(true);
       updateTooltipPosition(event);
     })
     .on('mouseleave', function(event) {
-      d3.select(event.currentTarget).style('fill-opacity', 0.7);
+      d3.select(event.currentTarget)
+        .style('fill-opacity', 0.7)
+        .classed('selected', isCommitSelected(d));
       updateTooltipContent({});
       updateTooltipVisibility(false);
     });
 
   // --- Define brush-related functions inside createScatterplot ---
   function isCommitSelected(commit) {
-    if (!brushSelection) return false;
-    const [x0, y0] = brushSelection[0];
-    const [x1, y1] = brushSelection[1];
-    const cx = xScale(commit.datetime);
-    const cy = yScale(commit.hourFrac);
-    return cx >= x0 && cx <= x1 && cy >= y0 && cy <= y1;
+    return selectedCommits.includes(commit);
   }
 
   function updateSelection() {
@@ -211,8 +213,17 @@ function createScatterplot(commits) {
     return breakdown;
   }
 
-  function brushed(event) {
-    brushSelection = event.selection;
+  function brushed(evt) {
+    const selection = evt.selection;
+    selectedCommits = !selection
+      ? []
+      : commits.filter(commit => {
+          let min = { x: selection[0][0], y: selection[0][1] };
+          let max = { x: selection[1][0], y: selection[1][1] };
+          let x = xScale(commit.date);
+          let y = yScale(commit.hourFrac);
+          return x >= min.x && x <= max.x && y >= min.y && y <= max.y;
+        });
     updateSelection();
     updateSelectionCount();
     updateLanguageBreakdown();
@@ -257,3 +268,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   console.log('Commits data:', commitsData);
   createScatterplot(commits);
 });
+
+// Update the slider display and re-filter commits, then update the scatterplot
+function updateTimeDisplay() {
+  const timeSlider = document.getElementById('timeSlider');
+  commitProgress = Number(timeSlider.value);
+  
+  // Update the display of the selected time using desired locale options
+  const selectedTime = d3.select('#selectedTime');
+  selectedTime.textContent = timeScale.invert(commitProgress).toLocaleString(undefined, {
+    dateStyle: "long",
+    timeStyle: "short"
+  });
+  
+  // Re-filter commits and update the scatterplot
+  filterCommitsByTime();
+  updateScatterplot(filteredCommits);
+}
