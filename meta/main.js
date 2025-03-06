@@ -170,7 +170,7 @@ function createScatterplot(commits) {
       updateTooltipVisibility(true);
       updateTooltipPosition(event);
     })
-    .on('mouseleave', function(event) {
+    .on('mouseleave', function(event, d) {
       d3.select(event.currentTarget)
         .style('fill-opacity', 0.7)
         .classed('selected', isCommitSelected(d));
