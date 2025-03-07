@@ -3,6 +3,7 @@ let commits = [];
 let selectedCommits = [];
 let commitProgress = 100; // Start showing all commits
 let timeScale;
+let commitMaxTime = timeScale.invert(commitProgress);
 let xScale, yScale, rScale; // Move scales to global scope
 
 function isCommitSelected(commit) {
@@ -47,7 +48,6 @@ function processCommits() {
 }
 
 function filterCommitsByTime() {
-  const commitMaxTime = timeScale.invert(commitProgress);
   return commits.filter(commit => commit.datetime <= commitMaxTime);
 }
 
