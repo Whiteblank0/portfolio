@@ -106,38 +106,16 @@ async function loadData() {
 }
 
 function createTimeSlider() {
-  // Create container div for the time slider
-  const sliderContainer = d3.select('#chart')
-    .insert('div', 'svg')
-    .attr('class', 'slider-container')
-    .style('display', 'flex')
-    .style('align-items', 'baseline')
-    .style('margin-bottom', '1em');
+  // Instead of creating a new slider, select the existing one.
+  const timeSlider = document.getElementById('time-slider');
+  timeSlider.addEventListener('input', updateTimeDisplay);
   
-  // Add label
-  sliderContainer.append('label')
-    .attr('for', 'time-slider')
-    .text('Show commits until:')
-    .style('flex', '0 0 auto');
-  
-  // Add slider
-  sliderContainer.append('input')
-    .attr('id', 'time-slider')
-    .attr('type', 'range')
-    .attr('min', 0)
-    .attr('max', 100)
-    .attr('value', commitProgress)
-    .style('flex', '1')
-    .on('input', updateTimeDisplay);
-  
-  // Add time display
-  sliderContainer.append('time')
-    .attr('id', 'selectedTime')
-    .style('margin-left', 'auto')
-    .text(timeScale.invert(commitProgress).toLocaleString({
-      dateStyle: "long", 
-      timeStyle: "short"
-    }));
+  // Initialize the time display using the slider value
+  const timeDisplay = document.getElementById('selectedTime');
+  timeDisplay.textContent = timeScale(commitProgress).toLocaleString({
+    dateStyle: "long", 
+    timeStyle: "short"
+  });
 }
 
 function updateTimeDisplay() {
