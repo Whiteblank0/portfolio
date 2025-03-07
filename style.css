@@ -373,9 +373,15 @@ dl.info {
 
 /* Basic transition and scaling for circles */
 circle {
-  transition: 200ms;
-  transform-origin: center;
-  transform-box: fill-box;
+  /* The final state properties */
+  transition: all 200ms, r calc(var(--r) * 100ms);
+  fill: steelblue;
+  fill-opacity: 0.7;
+  
+  /* Starting style: begin with a radius of 0 */
+  @starting-style {
+    r: 0;
+  }
 }
 
 circle:hover {
