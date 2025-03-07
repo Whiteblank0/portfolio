@@ -2,7 +2,7 @@ let data = [];
 let commits = [];
 let selectedCommits = [];
 let commitProgress = 100; // Start showing all commits
-let timeScale;
+let timeScale = d3.scaleTime([d3.min(commits, d => d.datetime), d3.max(commits, d => d.datetime)], [0, 100]);
 let commitMaxTime = timeScale.invert(commitProgress);
 let xScale, yScale, rScale; // Move scales to global scope
 
@@ -40,11 +40,6 @@ function processCommits() {
 
       return ret;
     });
-    
-  // Initialize timeScale after commits are processed
-  timeScale = d3.scaleLinear()
-    .domain([0, 100])
-    .range([d3.min(commits, d => d.datetime), d3.max(commits, d => d.datetime)]);
 }
 
 function filterCommitsByTime() {
