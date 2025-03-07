@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meta</title>
   <link rel="stylesheet" href="../style.css">
+  <!-- Add the additional CSS for this page -->
+  <style>
+    /* Paste the additional CSS here */
+  </style>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script type="module" src="../global.js"></script>
   <script src="main.js" defer></script>
@@ -13,6 +17,16 @@
   <header>
     <h1>Meta</h1>
     <p>This page includes stats about the code of this website.</p>
+  </header>
+  
+  <header>
+    <h2>Summary</h2>
+  </header>
+
+  <div id="stats"></div>
+  
+  <header>
+    <h2>Commits by time of day</h2>
   </header>
   
   <div id="chart">
@@ -27,19 +41,11 @@
     <!-- The scatterplot will be appended here by D3 -->
   </div>
   
-  <header>
-    <h2>Summary</h2>
-  </header>
-
-  <div id="stats"></div>
+  <p id="selection-count">No commits selected</p>
+  <dl id="language-breakdown" class="stats"></dl>
   
-  <header>
-    <h2>Commits by time of day</h2>
-  </header>
-  
-  <div id="chart"></div>
-  
-  <dl id="commit-tooltip" class="info tooltip">
+  <!-- Tooltip (hidden by default) -->
+  <dl id="commit-tooltip" class="info tooltip" hidden>
     <dt>Commit</dt>
     <dd>
       <a href="" id="commit-link" target="_blank"></a>
@@ -47,11 +53,6 @@
   
     <dt>Date</dt>
     <dd id="commit-date"></dd>
-  
-    <!-- You can later add additional rows for time, author, lines edited, etc. -->
   </dl> 
-  
-  <p id="selection-count">No commits selected</p>
-  <dl id="language-breakdown" class="stats"></dl>
 </body>
 </html>
