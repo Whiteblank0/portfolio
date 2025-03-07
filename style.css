@@ -1,25 +1,380 @@
-/* Time control styling */
-#time-control {
+:root {
+  --color-accent: oklch(65% 30% 240);
+}
+
+html {
+  accent-color: var(--color-accent);
+}
+
+body {
+  /* Set line height to 1.5 times the font size
+     and use the OS’s UI font as the website font
+  */
+  margin: 30;
+  margin-inline: max(1em, (100% - 1200px) / 2);
+  font: 100%/1.5 system-ui;
+  padding: 30;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+nav ul,
+nav li {
+  display: contents;
+}
+
+nav {
+  --border-color: oklch(50% 10% 200 / 40%);
+  --hover-accent: oklch(65% 25% 230); /* Accent color for hover states */
+  
   display: flex;
-  align-items: baseline;
+  gap: 1rem;
   margin-bottom: 1rem;
-  padding: 0.5rem;
-  background-color: #f8f8f8;
-  border-radius: 0.25rem;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 0;
 }
 
-#time-control label {
+nav a {
   flex: 1;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  padding: 0.5em;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
-#selectedTime {
-  margin-left: auto;
+nav a:hover {
+  border-bottom: 0.4em solid var(--hover-accent);
+  padding-bottom: 0.1em;
+}
+
+@media (prefers-color-scheme: dark) {
+  nav {
+    --border-color: oklch(30% 15% 200 / 40%);
+    --hover-accent: oklch(75% 30% 250); /* Adjusted for better visibility in dark mode */
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  nav a:hover {
+    border-bottom-color: var(--hover-accent);
+  }
+}
+
+form input,
+form textarea,
+form button {
+  font: inherit;
+  box-sizing: border-box;
+}
+
+form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1em;
+}
+
+form label {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: subgrid;
+  margin-block: 0.5em;
+}
+
+form input,
+form textarea {
+  grid-column: 2;
+  width: 100%;
+}
+
+form button {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 0.5em 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 400%;
+  margin-block: 0.5em;
+}
+
+/* The container that holds all the project cards */
+.projects {
+  display: grid;
+  /* Control how many columns you want per row: 
+     adjust the minmax() to whatever card width you like. */
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+  margin-block: 2em; /* Add some top/bottom margin, if you like */
+}
+
+/* Each project card */
+.projects article {
+  /* Use a simple flex column so elements stack nicely */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+
+  /* Optional styles: border, padding, background color, etc. */
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  padding: 1em;
+  background-color: #f8f9fa; /* Light grey, optional */
+}
+
+/* Project heading */
+.projects article h2 {
+  margin: 0;
+  font-size: 1.2rem; /* Adjust as you like */
+}
+
+/* Project image */
+.projects article img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-inline: auto; /* Center the image horizontally, optional */
+}
+
+/* Project description text */
+.projects article p {
+  margin: 0.5em 0;
+  line-height: 1.4;
+}
+
+/* Dark mode appearance */
+@media (prefers-color-scheme: dark) {
+  .projects article {
+    background-color: #2b2b2b;
+    color: #ddd;
+  }
+}
+
+/* Year styling (optional) */
+.project-year {
+  font-size: 0.9em;
+  color: gray;
+  margin-top: auto; /* Push it to the bottom if you want it last in the card */
+  font-style: italic; 
+}
+
+#education article {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  border-left: 4px solid var(--color-accent);
+}
+
+#education h3 {
   font-weight: bold;
 }
 
-/* Basic transition and scaling for circles with variable duration */
+#skills ul {
+  list-style: none;
+  padding: 0;
+}
+
+#skills li {
+  background-color: var(--color-accent);
+  color: white;
+  padding: 0.5em 1em;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+}
+
+#projects article {
+  /* Use Flexbox in a vertical direction so elements stack cleanly */
+  display: flex;
+  flex-direction: column;
+  
+  /* Optional: add some spacing so elements aren’t jammed together */
+  gap: 0.5em;
+
+  /* A border or background can help visually separate each article */
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  padding: 1em;
+}
+
+
+#projects article a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+#projects article a:hover {
+  text-decoration: underline;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%; /* Make it slightly smaller */
+  font-family: inherit; /* Use the parent's font */
+  border: 1px solid var(--border-color, lightgray); /* Optional for visibility */
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.color-scheme select {
+  font-size: inherit;
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+.container {
+  display: flex;
+  gap: 1em; /* spacing between the pie chart and the legend */
+  align-items: center; /* or flex-start / center, etc. */
+}
+
+.container svg {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
+}
+
+.legend {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 1em; /* spacing between legend items */
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em; /* smaller gap inside each item to visually group it */
+}
+
+.legend li .swatch {
+  /* The custom property --color is set dynamically in D3 */
+  background: var(--color);
+  width: 1em;
+  height: 1em;
+  border-radius: 0.25em; /* slight rounding (or 50% for a circle) */
+  display: inline-block;
+}
+
+&:has(path:hover) {
+  path:not(:hover) {
+    opacity: 0.5;
+  }
+}
+
+/* Smooth transitions on <path> elements */
+svg path {
+  transition: 300ms;
+  cursor: pointer; /* So the user knows it’s clickable */
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+}
+
+/* Example color override: force a specific fill */
+.selected:is(path) {
+  fill: oklch(60% 45% 0 / 1) !important; /* Bright highlight color */
+}
+
+/* If you also want the legend item’s swatch to highlight */
+.selected:is(li) .swatch {
+  background-color: oklch(60% 45% 0 / 1) !important;
+}
+
+.gridlines line {
+  stroke: #ccc;
+  stroke-opacity: 0.5;
+}
+
+/* Style for all <dl> elements that provide information */
+dl.info {
+  display: grid;
+  grid-template-columns: max-content auto;
+  gap: 0.5em 1em;
+  margin: 0;
+  padding: 0.5em;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+/* Position the tooltip at the top left of the viewport */
+.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  z-index: 10;
+}
+
+/* Tooltip styling */
+.info.tooltip {
+  background-color: rgba(255, 255, 255, 0.9); /* white with slight transparency */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  /* subtle shadow */
+  border-radius: 4px;                           /* rounded corners */
+  padding: 0.5em 1em;                           /* comfortable spacing */
+  backdrop-filter: blur(4px);                   /* optional frosted glass effect */
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+  pointer-events: none;                         /* so it doesn't interfere with mouse events */
+}
+
+/* When hidden (and not hovered/focused), make it invisible */
+.info.tooltip[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Summary styling */
+#stats dl.stats {
+  /* Use flex to place each stat item side by side */
+  display: flex;
+  gap: 2em;
+  justify-content: space-between;
+  text-align: center;
+  max-width: 100%;
+  margin-block: 1em; /* Add spacing above/below if desired */
+}
+
+#stats dl.stats dt {
+  color: #6c757d;             /* Subdued label color */
+  font-size: 0.75em;          /* Smaller label */
+  text-transform: uppercase;  /* Make label text uppercase */
+  margin: 0;
+}
+
+#stats dl.stats dd {
+  font-size: 2em;     /* Larger numeric value */
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Ensure each <dt> / <dd> pair lines up nicely. */
+#stats dl.stats > dt,
+#stats dl.stats > dd {
+  flex: 1;
+}
+
+/* Basic transition and scaling for circles */
 circle {
-  transition: all 200ms, r calc(var(--r) * 10ms);
+  /* The final state properties */
+  transition: all 200ms, r calc(var(--r) * 100ms);
   fill: steelblue;
   fill-opacity: 0.7;
   
@@ -30,17 +385,15 @@ circle {
 }
 
 circle:hover {
-  transform: scale(1.1);
-  z-index: 10;
+  transform: scale(1.5);
 }
 
 /* Highlight selected dots */
 circle.selected {
   fill: #ff6b6b;
-  fill-opacity: 0.9;
 }
 
-/* Styling for the brush selection rectangle */
+/* Optional: Styling for the brush selection rectangle */
 @keyframes marching-ants {
   to {
     stroke-dashoffset: -8;
@@ -55,61 +408,40 @@ circle.selected {
   animation: marching-ants 2s linear infinite;
 }
 
-/* Make the language breakdown match stats style */
+/* Make the language breakdown match "graph 2" style */
 #language-breakdown {
+  /* Put each language "group" side by side */
   display: flex;
-  justify-content: center;
-  gap: 2em;
-  text-align: center;
+  justify-content: center;   /* Center them horizontally */
+  gap: 2em;                  /* Spacing between language groups */
+  text-align: center;        /* Center text in each group */
   margin-top: 1em;
-  flex-wrap: wrap;
 }
 
+/* Each language group: 
+   dt = language name (uppercase, bold)
+   dd = lines count and percentage */
 #language-breakdown dt,
 #language-breakdown dd {
-  display: block;
+  display: block;  /* Stack dt, dd, dd vertically within each group */
   margin: 0;
   line-height: 1.4;
 }
 
 #language-breakdown dt {
-  text-transform: uppercase;
+  text-transform: uppercase; /* e.g., "CSS" */
   font-weight: bold;
   font-size: 1.2em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.25em;     /* Space after the language name */
 }
 
 #language-breakdown dd:nth-of-type(1) {
-  font-size: 1.5em;
+  font-size: 2em;            /* e.g., "82 lines" in larger font */
   font-weight: 400;
   margin-bottom: 0.25em;
 }
 
 #language-breakdown dd:nth-of-type(2) {
-  font-size: 0.9em;
-  color: #666;
-}
-
-/* Selection count styling */
-#selection-count {
-  text-align: center;
-  font-weight: bold;
-  margin: 1em 0;
-}
-
-/* Fix tooltip position */
-#commit-tooltip {
-  position: fixed;
-  z-index: 100;
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  padding: 0.75em;
-  pointer-events: none;
-  transition: opacity 200ms ease;
-}
-
-#commit-tooltip[hidden] {
-  opacity: 0;
-  visibility: hidden;
+  font-size: 1em;            /* e.g., "(23.6%)" in smaller font */
+  color: #666;               /* Slightly subdued color */
 }
