@@ -372,25 +372,26 @@ dl.info {
 }
 
 /* Basic transition and scaling for circles */
+/* Add these CSS rules to your stylesheet */
+
 circle {
-  /* The final state properties */
-  transition: all 200ms, r calc(var(--r) * 100ms);
-  fill: steelblue;
-  fill-opacity: 0.7;
-  
-  /* Starting style: begin with a radius of 0 */
-  @starting-style {
+  transition: all 200ms, r calc(var(--r) * 3ms);
+}
+
+@starting-style {
+  circle {
     r: 0;
   }
 }
 
-circle:hover {
-  transform: scale(1.5);
+/* Optional: You can add more styling for selected circles */
+circle.selected {
+  stroke: #ff9900;
+  stroke-width: 2px;
 }
 
-/* Highlight selected dots */
-circle.selected {
-  fill: #ff6b6b;
+circle:hover {
+  transform: scale(1.5);
 }
 
 /* Optional: Styling for the brush selection rectangle */
