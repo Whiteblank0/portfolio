@@ -1,12 +1,26 @@
 // Global variables
 let data = [];
 let commits = [];
+<<<<<<< HEAD
 let filteredCommits = []; // Define the missing variable
 let brushSelection = null; // Global variable to store the current brush selection (null if none)
 let selectedCommits = [];
 let commitProgress = 100;
 let timeScale; // Will be initialized after data is loaded
 let commitMaxTime; // Will be initialized after data is loaded
+=======
+
+async function loadData() {
+  data = await d3.csv('loc.csv', (row) => ({
+    ...row,
+    line: Number(row.line),
+    depth: Number(row.depth),
+    length: Number(row.length),
+    date: new Date(row.date + 'T00:00' + row.timezone),
+    datetime: new Date(row.datetime),
+  }));
+}
+>>>>>>> parent of 9dbd96e (Update main.js)
 
 function processCommits() {
   commits = d3.groups(data, d => d.commit)
@@ -18,22 +32,38 @@ function processCommits() {
       // Build a commit summary object
       let ret = {
         id: commit,
+<<<<<<< HEAD
         url: 'https://github.com/Whiteblank0/portfolio/commit/' + commit,
+=======
+        url: 'https://github.com/YOUR_REPO/commit/' + commit, // Replace YOUR_REPO accordingly
+>>>>>>> parent of 9dbd96e (Update main.js)
         author,
         date,
         time,
         timezone,
         datetime,
+        // Calculate hour fraction for time-of-day analysis (e.g., 2:30 PM becomes 14.5)
         hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
+        // Total number of lines modified in this commit
         totalLines: lines.length,
       };
 
+<<<<<<< HEAD
       // Add the original line data as a hidden property
       Object.defineProperty(ret, 'lines', {
         value: lines,
         writable: true,
         configurable: true,
         enumerable: false
+=======
+      // Add the original line data as a hidden property using Object.defineProperty.
+      // Setting enumerable: false ensures it doesn't clutter up the output when printed.
+      Object.defineProperty(ret, 'lines', {
+        value: lines,
+        writable: true,     // Allow changes if needed
+        configurable: true, // Allow the property to be reconfigured later
+        enumerable: false   // Hide it from standard enumeration (e.g., console.log)
+>>>>>>> parent of 9dbd96e (Update main.js)
       });
 
       return ret;
