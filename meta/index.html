@@ -13,7 +13,11 @@
   <header>
     <h1>Meta</h1>
     <p>This page includes stats about the code of this website.</p>
-    <h2>Summary</h2>
+    <label for="time-slider" style="margin-left: auto;">
+      Show commits until:
+      <input type="range" id="time-slider" min="0" max="100" value="100">
+      <time id="selectedTime"></time>
+    </label>
   </header>
   
   <div id="stats"></div>

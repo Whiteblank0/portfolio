@@ -145,7 +145,7 @@ function updateTimeDisplay() {
   commitProgress = Number(timeSlider.value);
   
   const selectedTime = d3.select('#selectedTime');
-  selectedTime.text(timeScale.invert(commitProgress).toLocaleString('en', {
+  selectedTime.text(timeScale(commitProgress).toLocaleString('en', {
     dateStyle: "long", 
     timeStyle: "short"
   }));
