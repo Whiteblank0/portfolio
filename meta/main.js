@@ -142,7 +142,7 @@ function updateScatterplot(filteredCommits) {
   };
 
   // Remove existing SVG if any
-  d3.select('#chart svg').remove();
+  d3.select('svg').remove();
 
   // Create the SVG container
   const svg = d3.select('#chart')
@@ -192,6 +192,7 @@ function updateScatterplot(filteredCommits) {
   // Sort commits (largest dots first so that smaller dots appear on top)
   const sortedCommits = d3.sort(filteredCommits, (a, b) => b.totalLines - a.totalLines);
   const dots = svg.append('g').attr('class', 'dots');
+  dots.selectAll('circle').remove(); 
   dots.selectAll('circle')
     .data(sortedCommits)
     .join('circle')
